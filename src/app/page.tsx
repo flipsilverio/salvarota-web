@@ -5,12 +5,15 @@ import Image from 'next/image'
 
 // ─── Logo ────────────────────────────────────────────────────────────────────
 function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
-  const cls = { sm: 'text-xl', md: 'text-2xl', lg: 'text-4xl' }[size]
+  const dims = { sm: { w: 50, h: 40 }, md: { w: 65, h: 52 }, lg: { w: 80, h: 64 } }[size]
   return (
-    <span className={`font-display font-light tracking-tight text-cream ${cls}`}>
-      Salva<span className="font-normal">rota</span>
-      <sup className="text-[0.5em] ml-0.5 opacity-60">®</sup>
-    </span>
+    <Image
+      src="/logo.svg"
+      alt="SalvaRota"
+      width={dims.w}
+      height={dims.h}
+      priority
+    />
   )
 }
 
