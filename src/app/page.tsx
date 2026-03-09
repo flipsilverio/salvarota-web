@@ -229,20 +229,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PHOTO 2 — Ipanema / Leblon with Dois Irmãos */}
+      {/* PHOTO 2 — Copacabana calçadão aerial */}
       <section className="relative h-[55vh] md:h-[65vh] overflow-hidden">
         <Image
-          src="/rio-ipanema.jpg"
-          alt="Rio de Janeiro, Leblon com Dois Irmãos ao fundo"
+          src="/rio-cidade-bonita.jpg"
+          alt="Vista aérea do calçadão de Copacabana, Rio de Janeiro"
           fill
-          className="object-cover object-center"
+          className="object-cover object-[center_40%]"
           sizes="100vw"
+          style={{ filter: 'sepia(0.28) saturate(1.1) brightness(0.88) contrast(1.05)' }}
         />
-        <div className="absolute inset-0 bg-[#1C1915]/65 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-[#2A1E14]/70 mix-blend-multiply" />
         <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E")`,
           backgroundRepeat: 'repeat',
-          opacity: 0.4,
+          opacity: 0.45,
         }} />
         <div className="absolute inset-0 flex items-center justify-center px-6">
           <div className="text-center">
