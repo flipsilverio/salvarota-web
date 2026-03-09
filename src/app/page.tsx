@@ -1,14 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
 // ─── Logo ────────────────────────────────────────────────────────────────────
 function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
-  const cls = {
-    sm: 'text-xl',
-    md: 'text-2xl',
-    lg: 'text-4xl',
-  }[size]
+  const cls = { sm: 'text-xl', md: 'text-2xl', lg: 'text-4xl' }[size]
   return (
     <span className={`font-display font-light tracking-tight text-cream ${cls}`}>
       Salva<span className="font-normal">rota</span>
@@ -24,91 +21,25 @@ function PhoneMockup() {
       {/* Outer frame */}
       <div className="relative rounded-[42px] bg-[#111] p-[10px] shadow-2xl shadow-black/60 ring-1 ring-white/10">
         {/* Screen */}
-        <div className="overflow-hidden rounded-[34px] phone-screen aspect-[9/19.5]">
-          {/* Status bar */}
-          <div className="flex justify-between items-center px-5 pt-3 pb-1">
-            <span className="text-cream/70 text-[10px] font-medium">9:41</span>
-            <div className="w-[80px] h-5 rounded-full bg-black/40 mx-auto absolute left-1/2 -translate-x-1/2 top-2" />
-            <div className="flex gap-1 items-center">
-              <div className="flex gap-px items-end h-3">
-                {[2,3,4,5].map(h => (
-                  <div key={h} style={{height: `${h*2}px`}} className="w-[3px] bg-cream/60 rounded-sm" />
-                ))}
-              </div>
-              <div className="w-5 h-2.5 rounded-sm border border-cream/60 p-px">
-                <div className="h-full w-3/4 bg-cream/60 rounded-sm" />
-              </div>
-            </div>
-          </div>
-
-          {/* Search bar */}
-          <div className="mx-3 mt-3 bg-cream/95 rounded-xl flex items-center gap-2 px-3 py-2.5 shadow-sm">
-            <div className="w-3.5 h-3.5 rounded-full border-2 border-[#555] flex items-center justify-center">
-              <div className="w-1 h-1 bg-[#555] rounded-full" />
-            </div>
-            <span className="text-[#999] text-[11px]">Para onde?</span>
-            <div className="ml-auto w-3.5 h-0.5 bg-[#555]/40 rounded" />
-            <div className="w-3.5 h-0.5 bg-[#555]/40 rounded" />
-          </div>
-
-          {/* Map representation */}
-          <div className="mx-3 mt-2 flex-1 relative">
-            {/* Grid lines */}
-            <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 240 300">
-              {[30,60,90,120,150,180,210,240].map(y => (
-                <line key={y} x1="0" y1={y} x2="240" y2={y} stroke="#FAEFE9" strokeWidth="0.5"/>
-              ))}
-              {[40,80,120,160,200].map(x => (
-                <line key={x} x1={x} y1="0" x2={x} y2="300" stroke="#FAEFE9" strokeWidth="0.5"/>
-              ))}
-            </svg>
-            {/* Route line */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 240 300">
-              <path d="M 60 30 Q 80 80 100 120 Q 130 160 140 220" stroke="#E8A838" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="6,3"/>
-              <circle cx="60" cy="30" r="5" fill="#FAEFE9" />
-              <circle cx="140" cy="220" r="6" fill="#E8A838" />
-              <circle cx="140" cy="220" r="10" fill="#E8A838" fillOpacity="0.3" />
-            </svg>
-          </div>
-
-          {/* Bottom panel */}
-          <div className="absolute bottom-0 left-0 right-0 bg-[#FAEFE9] rounded-t-2xl px-4 pt-3 pb-5">
-            <div className="w-8 h-1 bg-black/20 rounded-full mx-auto mb-3" />
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="flex items-center gap-1.5 mb-0.5">
-                  <span className="text-black/40 text-[9px]">Localização atual</span>
-                  <div className="w-2 h-2 rounded-full bg-[#E8A838]" />
-                  <span className="text-[#E8A838] text-[9px] font-semibold">72 Moderado</span>
-                </div>
-                <span className="text-[#1C1915] font-semibold text-xs">Rua do Catete, 200</span>
-              </div>
-            </div>
-            <div className="h-px bg-black/8 my-2" />
-            <div className="flex gap-3">
-              {[
-                { label: 'Crime', val: '0.2', color: '#E05252' },
-                { label: 'Luz', val: '0.5', color: '#E8A838' },
-                { label: 'Negócios', val: '0.4', color: '#5BAD6F' },
-              ].map(m => (
-                <div key={m.label} className="flex items-center gap-1">
-                  <span className="text-[9px] text-black/50">{m.label}</span>
-                  <div className="w-1.5 h-1.5 rounded-full" style={{background: m.color}} />
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="relative overflow-hidden rounded-[34px]">
+          <Image
+            src="/app-screen.png"
+            alt="SalvaRota app"
+            width={280}
+            height={607}
+            className="w-full h-auto block"
+            priority
+          />
         </div>
       </div>
-
       {/* Glow */}
-      <div className="absolute -inset-4 bg-amber/10 rounded-full blur-2xl -z-10" />
+      <div className="absolute -inset-6 bg-amber/8 rounded-full blur-3xl -z-10"/>
     </div>
   )
 }
 
 // ─── Waitlist Form ────────────────────────────────────────────────────────────
-function WaitlistForm({ dark = false }: { dark?: boolean }) {
+function WaitlistForm() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'done'>('idle')
 
@@ -116,17 +47,16 @@ function WaitlistForm({ dark = false }: { dark?: boolean }) {
     e.preventDefault()
     if (!email) return
     setStatus('loading')
-    // Simulate API — replace with your email service (Mailchimp, Beehiiv, etc.)
     await new Promise(r => setTimeout(r, 800))
     setStatus('done')
   }
 
   if (status === 'done') {
     return (
-      <div className={`text-center py-4 ${dark ? 'text-cream' : 'text-cream'}`}>
+      <div className="text-center py-4">
         <div className="text-amber text-2xl mb-2">✓</div>
-        <p className="font-medium">Você está na lista.</p>
-        <p className="text-cream/50 text-sm mt-1">Avisaremos quando o SalvaRota estiver disponível.</p>
+        <p className="text-cream font-medium">Você está na lista.</p>
+        <p className="text-cream/40 text-sm mt-1">Avisaremos quando o SalvaRota estiver disponível.</p>
       </div>
     )
   }
@@ -189,7 +119,6 @@ export default function Home() {
       {/* HERO */}
       <section className="gradient-animated min-h-screen flex items-center pt-20 pb-16 px-6 md:px-12">
         <div className="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
-          {/* Left */}
           <div className="max-w-xl">
             <p className="text-amber text-xs font-semibold tracking-[0.2em] uppercase mb-6">
               Rio de Janeiro · Em breve
@@ -200,7 +129,7 @@ export default function Home() {
               <em className="not-italic text-amber">de A a B.</em>
             </h1>
             <p className="text-cream/60 text-lg leading-relaxed mb-10 max-w-md">
-              SalvaRota calcula a rota mais segura para você caminhar pelo Rio.
+              SalvaRota calcula a rota mais segura para você caminhar pelo Rio de Janeiro.
               Não a mais rápida — a mais tranquila.
             </p>
             <WaitlistForm />
@@ -208,20 +137,34 @@ export default function Home() {
               Gratuito. Sem spam. Avisaremos quando estivermos prontos.
             </p>
           </div>
-          {/* Right */}
           <div className="flex justify-center md:justify-end">
             <PhoneMockup />
           </div>
         </div>
       </section>
 
-      {/* PULL QUOTE */}
-      <section className="bg-mid py-24 px-6 md:px-12">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="font-display text-3xl sm:text-4xl md:text-5xl text-cream leading-tight">
+      {/* PHOTO 1 — Historic Rio street */}
+      <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
+        <Image
+          src="/rio-street.jpg"
+          alt="Rua histórica do Rio de Janeiro"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        {/* Brand overlay: dark warm tone + slight sepia + grain texture */}
+        <div className="absolute inset-0 bg-[#1C1915]/70 mix-blend-multiply" />
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat',
+          opacity: 0.4,
+        }} />
+        {/* Text overlay */}
+        <div className="absolute inset-0 flex items-end px-6 md:px-12 pb-12">
+          <p className="font-display text-3xl sm:text-4xl md:text-5xl text-cream/90 max-w-2xl leading-tight">
             "Nem toda rua é igual.<br />
-            <span className="text-cream/50">Horário importa. Iluminação importa.<br />
-            Quem está aberto ao redor importa."</span>
+            <span className="text-cream/55">Horário importa. Iluminação importa.<br />
+            O que está aberto ao redor importa."</span>
           </p>
         </div>
       </section>
@@ -233,7 +176,7 @@ export default function Home() {
           <h2 className="font-display text-4xl md:text-5xl text-cream mb-16 max-w-lg leading-tight">
             Três passos.<br />Uma rota mais segura.
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-4">
             {[
               {
                 n: '01',
@@ -251,8 +194,11 @@ export default function Home() {
                 body: 'Siga a rota sugerida. Não a mais rápida — a mais tranquila.',
               },
             ].map(step => (
-              <div key={step.n} className="group">
-                <p className="font-display text-5xl text-amber/20 group-hover:text-amber/40 transition mb-4 leading-none">{step.n}</p>
+              <div
+                key={step.n}
+                className="group rounded-2xl px-6 py-7 transition-colors duration-200 hover:bg-[#242018] cursor-default"
+              >
+                <p className="font-display text-5xl text-amber/20 group-hover:text-amber/35 transition-colors mb-4 leading-none">{step.n}</p>
                 <h3 className="text-cream font-semibold text-lg mb-2">{step.title}</h3>
                 <p className="text-cream/50 text-sm leading-relaxed">{step.body}</p>
               </div>
@@ -283,16 +229,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MANIFESTO */}
-      <section className="bg-dark py-24 px-6 md:px-12">
-        <div className="max-w-3xl mx-auto">
-          <p className="font-display text-2xl sm:text-3xl text-cream/80 leading-relaxed">
-            O Rio é uma das cidades mais belas do mundo.
-            Também pede atenção.{' '}
-            <span className="text-cream">
-              O SalvaRota não tira você das ruas — te ajuda a aproveitá-las melhor.
-            </span>
-          </p>
+      {/* PHOTO 2 — Ipanema / Leblon with Dois Irmãos */}
+      <section className="relative h-[55vh] md:h-[65vh] overflow-hidden">
+        <Image
+          src="/rio-ipanema.jpg"
+          alt="Rio de Janeiro, Leblon com Dois Irmãos ao fundo"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[#1C1915]/65 mix-blend-multiply" />
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat',
+          opacity: 0.4,
+        }} />
+        <div className="absolute inset-0 flex items-center justify-center px-6">
+          <div className="text-center">
+            <p className="font-display text-4xl sm:text-5xl md:text-6xl text-cream leading-tight max-w-3xl">
+              O Rio é uma das<br />
+              cidades mais belas do mundo.
+            </p>
+            <p className="text-cream/50 text-lg mt-4 max-w-xl mx-auto">
+              O SalvaRota não tira você das ruas — te ajuda a aproveitá-las com mais segurança.
+            </p>
+          </div>
         </div>
       </section>
 
