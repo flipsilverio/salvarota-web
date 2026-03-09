@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 // ─── Logo ────────────────────────────────────────────────────────────────────
@@ -105,11 +105,19 @@ function DataCard({ emoji, label, source, tag, tagColor }: {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function Home() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
     <main className="min-h-screen">
 
       {/* NAV */}
-      <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-5">
+      <nav className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 transition-all duration-300 ${scrolled ? 'backdrop-blur-md bg-[#1C1915]/70 border-b border-white/5' : ''}`}>
         <Logo size="sm" />
         <a
           href="#waitlist"
