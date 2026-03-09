@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #1C1915;
+  color: #FAEFE9;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animated gradient background */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-animated {
+  background: linear-gradient(135deg, #1C1915, #2A231C, #3D2810, #1E3040, #2A231C);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Phone mockup */
+.phone-screen {
+  background: linear-gradient(160deg, #2A231C 0%, #3D2810 50%, #1E3040 100%);
+}
