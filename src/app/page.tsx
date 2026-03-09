@@ -42,16 +42,37 @@ function PhoneMockup() {
 }
 
 // ─── Waitlist Form ────────────────────────────────────────────────────────────
+const LOOPS_FORM_URL = 'https://app.loops.so/api/newsletter-form/cmmjt57kc0thh0ivq1iyydn2o'
+
 function WaitlistForm() {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'done'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email) return
     setStatus('loading')
-    await new Promise(r => setTimeout(r, 800))
-    setStatus('done')
+    setErrorMsg('')
+
+    try {
+      const res = await fetch(LOOPS_FORM_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ email }),
+      })
+
+      if (res.ok) {
+        setStatus('done')
+      } else {
+        const data = await res.json().catch(() => ({}))
+        setErrorMsg(data?.message ?? 'Algo deu errado. Tente novamente.')
+        setStatus('error')
+      }
+    } catch {
+      setErrorMsg('Erro de conexão. Verifique sua internet e tente novamente.')
+      setStatus('error')
+    }
   }
 
   if (status === 'done') {
@@ -65,23 +86,28 @@ function WaitlistForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
-      <input
-        type="email"
-        placeholder="seu@email.com"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-        className="flex-1 bg-cream/10 border border-cream/20 text-cream placeholder:text-cream/40 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-amber/60 transition"
-      />
-      <button
-        type="submit"
-        disabled={status === 'loading'}
-        className="bg-amber text-dark font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-amber/90 transition whitespace-nowrap disabled:opacity-60"
-      >
-        {status === 'loading' ? '...' : 'Entrar na lista'}
-      </button>
-    </form>
+    <div className="w-full max-w-md">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full">
+        <input
+          type="email"
+          placeholder="seu@email.com"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+          className="flex-1 bg-cream/10 border border-cream/20 text-cream placeholder:text-cream/40 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-amber/60 transition"
+        />
+        <button
+          type="submit"
+          disabled={status === 'loading'}
+          className="bg-amber text-dark font-semibold text-sm px-6 py-3.5 rounded-xl hover:bg-amber/90 transition whitespace-nowrap disabled:opacity-60"
+        >
+          {status === 'loading' ? 'Aguarde...' : 'Entrar na lista'}
+        </button>
+      </form>
+      {status === 'error' && (
+        <p className="text-red-400 text-xs mt-2 text-center">{errorMsg}</p>
+      )}
+    </div>
   )
 }
 
@@ -173,9 +199,9 @@ export default function Home() {
         {/* Text overlay */}
         <div className="absolute inset-0 flex items-end px-6 md:px-12 pb-12">
           <p className="font-display text-3xl sm:text-4xl md:text-5xl text-cream/90 max-w-2xl leading-tight">
-            "Nem toda rua é igual.<br />
+            &ldquo;Nem toda rua é igual.<br />
             <span className="text-cream/55">Horário importa. Iluminação importa.<br />
-            O que está aberto ao redor importa."</span>
+            O que está aberto ao redor importa.&rdquo;</span>
           </p>
         </div>
       </section>
