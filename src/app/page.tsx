@@ -117,7 +117,7 @@ export default function Home() {
     <main className="min-h-screen">
 
       {/* NAV */}
-      <nav className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 transition-all duration-300 ${scrolled ? 'backdrop-blur-md bg-[#1C1915]/70 border-b border-white/5' : ''}`}>
+      <nav className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 md:px-12 py-5 border-b transition-all duration-300 ${scrolled ? 'backdrop-blur-md bg-[#1C1915]/70 border-white/5' : 'border-transparent'}`}>
         <Logo size="sm" />
         <a
           href="#waitlist"
